@@ -1,0 +1,60 @@
+alan j. perlis
+maurice wilkes
+richard hamming
+marvin minsky
+james h. wilkinson
+john mccarthy
+edsger w. dijkstra
+charles w. bachman
+donald e. knuth
+allen newell
+herbert a. simon
+michael o. rabin
+dana s. scott
+john backus
+robert w. floyd
+kenneth e. iverson
+c. antony r. hoare
+edgar f. codd
+stephen a. cook
+ken thompson
+dennis m. ritchie
+niklaus wirth
+richard m. karp
+john hopcroft
+robert tarjan
+john cocke
+ivan sutherland
+william kahan
+fernando j. corbató
+robin milner
+butler w. lampson
+juris hartmanis
+richard e. stearns
+edward feigenbaumand
+raj reddy
+manuel blum
+amir pnueli
+douglas engelbart
+jim gray
+frederick p. brooks
+andrew chi-chih yao
+ole-johan dahl
+kristen nygaard
+ronald l. rivest
+adi shamir
+leonard m. adleman
+alan kay
+vinton g. cerf
+robert e. kahn
+peter naur
+frances e. allen
+edmund m. clarke
+e. allen emersonand
+joseph sifakis
+barbara liskov
+charles p. thacker
+leslie g. valiant
+judea pearl
+silvio micali
+shafi goldwasser

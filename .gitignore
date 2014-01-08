@@ -34,3 +34,12 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# More...
+*.pyc
+*.dot
+*.png
+*config_whitaker.py
+*.DS_Store
+.DS_Store
+Script-FindPrizeWinners/make_lists.py
