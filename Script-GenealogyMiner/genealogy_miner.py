@@ -6,9 +6,8 @@ import sys
 import argparse
 
 import networkx as nx
-from geneagrapher import geneagrapher
 
-from config import *
+from geneagrapher import geneagrapher
 
 
 #

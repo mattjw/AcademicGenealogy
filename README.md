@@ -13,10 +13,15 @@ Walkthrough for the Alan Turing example:
 ### Dependencies
 
 Python packages:
-* networkx
+
+* networkx  
+Required by .
+
 
 System packages:
-* graphviz
+
+* graphviz  
+Optional. Used for rendering dot files.
 
 
 ### Author
