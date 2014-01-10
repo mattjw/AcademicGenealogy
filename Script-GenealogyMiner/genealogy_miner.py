@@ -121,6 +121,15 @@ def colour_ancestors( nxgraph, node_id, colour ):
     rec( nxgraph, node_id )
 
 
+def to_unicode( txt ):
+    """
+    Force a non-unicode string to unicode.
+    """
+    if type(txt) is not unicode:
+        return txt.decode('utf-8')
+    else:
+        return txt
+
 #
 #
 # FUNCS -- I/O, CRAWLING, DATA
@@ -202,9 +211,10 @@ def nxgraph_to_dot( nxg, focal_node_id, config ):
 
         # Finish up....
         label = re.sub( r'\s+', ' ', label )
+        label = to_unicode( label )  # geneagrapher varies between uni and str
         colour = nxg.node[nodeID]['colour']
-        s = u"""\t\t%s [label="%s" fontcolor="%s"];\n""" % (nodeID,label,colour)
 
+        s = u"""\t\t%s [label="%s" fontcolor="%s"];\n""" % (nodeID,label,colour)
         txt_nodes += s
 
     txt_edges = u""
