@@ -50,15 +50,12 @@ SEED_ID_LIST = [
  				 36928, # Roger Penrose
 				 12555, # Donald Coxeter
 				 91222, # Richard Feynman
-				 19539, # Godel
 				 12543, # Markov
-				 7298, # Hilbert
 				 60791, # Mandelbrot
 				 105806, # James Clerk Maxwell
 				 7398, # Haskell Curry (student of Hilbert)
 				 4556, # Hamming
 				 8012, # Stephen Cole Kleene. Brother to Turing.
-				 53239, # Marcus du Sautoy
 				 # following = a few students of feynman
 				 136442, # hibbs
 				 142041, # lomanitz

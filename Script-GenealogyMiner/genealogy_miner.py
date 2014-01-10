@@ -13,7 +13,7 @@ from config import *
 
 #
 #
-# GLOBAL CONSTS
+# CONSTS
 #
 TMP_DOT_FPATH = "./_tmp.dot"
 DOT_TEMPLATE = u"""
@@ -33,10 +33,7 @@ digraph genealogy {
 #
 # INPUT
 #
-
 parser = argparse.ArgumentParser(description="Batch Grader")
-
-# compulsory
 parser.add_argument( 'input_py_module', action='store', type=str,
                      help="Input configuration file, as Python module" )
 parser.add_argument( 'output_dot_file', action='store', type=str,
@@ -47,6 +44,7 @@ FCONFIG_PATH = args.input_py_module.rstrip('.py')
 FOUT_PATH = args.output_dot_file
 
 config = __import__(FCONFIG_PATH)
+
 
 #
 #
@@ -158,7 +156,7 @@ def nxgraph_to_dot( nxg, focal_node_id ):
 	# 2 - Find root nodes of the subgraph of ancestors of focal node
 	roots = get_roots( nxg, focal_node_id )
 
-	# 3 - Do exclusively DOWNWARD breatdthfirst traversal from each root node
+	# 3 - Do exclusively downward breadthfirst traversal from each root node
 	# colouring the edges and nodes as common ancestors
 	for root in roots:
 		colour_descendants( nxg, root, config.COLOUR_HAS_COMM_ANC )
@@ -183,6 +181,10 @@ def nxgraph_to_dot( nxg, focal_node_id ):
 		if frmID.startswith( 'missing_parent' ) or toID.startswith( 'missing_parent' ):
 			nxg.edge[frmID][toID]['colour'] = config.COLOUR_MISSING_PARENT
 	
+	for nodeID in nxg.nodes_iter():
+		if nodeID.startswith( 'missing_parent' ):
+			nxg.node[node]['colour'] = config.COLOUR_MISSING_PARENT
+
 	# (7 - overwrite colour for prize winners)
 	for node in nxg.nodes_iter():
 		if node in config.PRIZE_WINNER_IDS:
@@ -200,7 +202,7 @@ def nxgraph_to_dot( nxg, focal_node_id ):
 		
 		# Do something special for an ellipsis?
 		if label == '...':
-			label = '...'  # just leave it alone!
+			label = '...'  # for now, just leave it alone
 
 		# Finish up....
 		label = re.sub( r'\s+', ' ', label )
@@ -250,12 +252,11 @@ def mathID_to_nxgraph( mathID ):
 
 #
 #
-# PROC
+# GENEALOGY MINING AND OUTPUT
 #
 
 #
 # Prep
-
 g = nx.DiGraph()
 
 if config.ID_FOCAL_NODE not in config.SEED_ID_LIST:
