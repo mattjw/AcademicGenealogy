@@ -25,7 +25,7 @@ Optional. Used for rendering dot files.
 
 
 ### Author
-By Matt Williams. Website: http://www.mattjw.net/
+Matt J Williams. 2014. Website: http://www.mattjw.net/
 
 ### Acknowledgements
 David Alber's Geneagrapher: http://www.davidalber.net/geneagrapher/
