@@ -49,20 +49,18 @@ ID_FOCAL_NODE = 8014  # Alan Turing
 SEED_ID_LIST = [
  				 36928, # Roger Penrose
 				 12555, # Donald Coxeter
-				 91222, # Richard Feynman
 				 12543, # Markov
 				 60791, # Mandelbrot
-				 105806, # James Clerk Maxwell
-				 7398, # Haskell Curry (student of Hilbert)
 				 4556, # Hamming
-				 8012, # Stephen Cole Kleene. Brother to Turing.
-				 # following = a few students of feynman
-				 136442, # hibbs
-				 142041, # lomanitz
-				 136436, # curtright
-				 # following = intesritng children+descendants of Groethendick
-				 61289, # deligne
-				 76208, # demazure
+				 #105806, # James Clerk Maxwell
+				 #7398, # Haskell Curry (student of Hilbert)
+				 #91222, # Richard Feynman
+				 #8012, # Stephen Cole Kleene. Brother to Turing.
+				 #136442, # hibbs
+				 #142041, # lomanitz
+				 #136436, # curtright
+				 #61289, # deligne
+				 #76208, # demazure
 				]
 
 # CULL_AND_ABOVE --  these nodes and all their ancestors will be removed

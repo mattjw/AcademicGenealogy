@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 import re
 import string
@@ -20,7 +20,7 @@ for fname in fnames:
     f.close()
 
     print "%s unique winners after loading %s" % ( len(winners), fname )
-print 
+print
 
 
 #
@@ -171,7 +171,7 @@ people = set( people )
 #
 #
 # Compare academics from genealogy to prize winners  -- fuzzy matching
-# (edit distance) on last name
+# (measured by edit distance) on last name
 #
 
 def levenshtein(seq1, seq2):
@@ -203,5 +203,5 @@ def match( a, b, max_dist=2 ):
 
 for b in winners:
     for a in people:
-        if match(a,b):
+        if match( a, b ):
             print "%30s %30s" % (a,b)
