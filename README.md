@@ -15,7 +15,7 @@ Walkthrough for the Alan Turing example:
 Python packages:
 
 * networkx  
-Required by .
+Required by `genealogy_miner`.
 
 
 System packages:
