@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+#
+# Author:  Matt J Williams
+# Created: December 2013 
+# Web:     http://www.mattjw.net
 
 import re
 import string
