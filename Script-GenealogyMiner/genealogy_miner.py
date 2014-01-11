@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Author:  Matt J Williams
-# Created: December 2013 
+# Created: December 2013
 # Web:     http://www.mattjw.net
 
 import re
@@ -239,6 +239,8 @@ def mathIDs_to_nxgraph( mathIDs ):
 
     A networkx di-graph is returned. Nodes (academics) are defined by their
     corresponding ID on the Genealogy Project.
+    Node IDs are converted to strigns (despite being ints). Each node has
+    a 'label' attribute giving the text for that node.
 
     This uses the geneagrapher package by David Alber:
     http://www.davidalber.net/geneagrapher/
@@ -246,12 +248,13 @@ def mathIDs_to_nxgraph( mathIDs ):
     # Currently uses geneagrapher as a black box. The functions uses ggrapher to
     # crawls a given node, writes its ancestry to a dot file, and then load
     # it back into memory using networkx.drawing.read_dot.
-    # Future improvement:~
-    # * load graph into networkx directly from ggrapher
+    
+    #
+    # Crawl using geneagrapher
     gg = geneagrapher.Geneagrapher()
     gg.get_ancestors = True
     gg.get_descendants = False
-    gg.leaf_ids.extend( mathIDs )  #~ add all?
+    gg.leaf_ids.extend( mathIDs )
     gg.write_filename = TMP_DOT_FPATH
 
     try:
@@ -262,9 +265,40 @@ def mathIDs_to_nxgraph( mathIDs ):
         print "Possibly network issue"
         print err
         exit()
-    gg.generateDotFile()
+    #gg.generateDotFile()
+    #g = nx.drawing.read_dot( TMP_DOT_FPATH )
 
-    g = nx.drawing.read_dot( TMP_DOT_FPATH )
+    #
+    # Convert geneagrapher graph to networkx graph
+    ggraph = gg.graph  # geneagrapher graph object
+    all_nodes = ggraph.getNodeList()  # node IDs (ggrapher node dict keys)
+
+    g = nx.DiGraph()
+
+    # Add all nodes
+    for gg_node_id in all_nodes:
+        node_obj = ggraph.getNode( gg_node_id )
+        node_label = str( node_obj )  # __str__ combines name + institution + year
+        nx_node_id = str(gg_node_id)
+        g.add_node( nx_node_id, {'label':node_label} )
+
+    # Add edges
+    for gg_node_id in all_nodes:
+        node_obj = ggraph.getNode( gg_node_id )
+        children = node_obj.descendants  # = children, not actually "descendants"
+        for child_id in children:
+            child_obj = ggraph.getNode( child_id )
+            if child_obj is None:
+                # This indicates a child that geneagrapher did not crawl the
+                # node.
+                # This occurs, e.g., when nodes on a particular ancestry 
+                # have their own children not on the line of ancestry.
+                # The child node will NOT appear in the `all_noes` list.
+                continue
+            nx_parent = str(gg_node_id)
+            nx_child = str(child_obj.id())
+            g.add_edge( nx_parent, nx_child )  # DiGraph: parent first
+
     return g
 
 

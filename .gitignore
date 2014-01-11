@@ -41,7 +41,8 @@ nosetests.xml
 *.png
 *.pdf
 *config_whitaker.py
+*config_greaves.py
+*config_lite.py
 *.DS_Store
 .DS_Store
 Script-FindPrizeWinners/make_lists.py
-*config_greaves.py
