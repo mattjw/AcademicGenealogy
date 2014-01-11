@@ -231,11 +231,11 @@ def nxgraph_to_dot( nxg, focal_node_id, config ):
     return txt
 
 
-def mathID_to_nxgraph( mathID ):
+def mathIDs_to_nxgraph( mathIDs ):
     """
-    Obtain ancestry from the Mathematics Genealogy Project for the individual
-    with Project ID `mathID`. All ancestors for `mathID` are obtained.
-    Descendants are NOT crawled.
+    Obtain ancestry from the Mathematics Genealogy Project for the individuals
+    with Project IDs in `mathIDs`. All ancestors for each node in `mathID` are
+    obtained. Descendants are NOT crawled.
 
     A networkx di-graph is returned. Nodes (academics) are defined by their
     corresponding ID on the Genealogy Project.
@@ -247,12 +247,11 @@ def mathID_to_nxgraph( mathID ):
     # crawls a given node, writes its ancestry to a dot file, and then load
     # it back into memory using networkx.drawing.read_dot.
     # Future improvement:~
-    # * rewrite ggrapgher to cache nodes encountered
     # * load graph into networkx directly from ggrapher
     gg = geneagrapher.Geneagrapher()
     gg.get_ancestors = True
     gg.get_descendants = False
-    gg.leaf_ids.append( mathID )
+    gg.leaf_ids.extend( mathIDs )  #~ add all?
     gg.write_filename = TMP_DOT_FPATH
 
     try:
@@ -299,16 +298,14 @@ if __name__ == "__main__":
     if config.ID_FOCAL_NODE not in config.SEED_ID_LIST:
         config.SEED_ID_LIST.append( config.ID_FOCAL_NODE )
 
-    for mathID in config.SEED_ID_LIST:
-        print "Crawling ancestry for node %s..." % (mathID)
-        g_new = mathID_to_nxgraph( mathID )
-            # g_new is a MultiDiGraph, but should not actually have any
-            # multi edges, so just need to add nodes and edges individually
-
-        g.add_nodes_from( g_new.nodes(data=True) )
-        g.add_edges_from( g_new.edges(data=True) )
-        # "Adding the same edge twice has no effect but any edge data will be
-        # updated when each duplicate edge is added.""
+    print "Initiating crawl..."
+    g_new = mathIDs_to_nxgraph( config.SEED_ID_LIST )
+        # g_new is a MultiDiGraph, but should not actually have any
+        # multi edges, so just need to add nodes and edges individually
+    g.add_nodes_from( g_new.nodes(data=True) )
+    g.add_edges_from( g_new.edges(data=True) )
+    # "Adding the same edge twice has no effect but any edge data will be
+    # updated when each duplicate edge is added.""
 
     #
     # Add extras
