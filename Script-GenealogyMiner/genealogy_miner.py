@@ -243,13 +243,26 @@ def mathID_to_nxgraph( mathID ):
     This uses the geneagrapher package by David Alber:
     http://www.davidalber.net/geneagrapher/
     """
+    # Currently uses geneagrapher as a black box. The functions uses ggrapher to
+    # crawls a given node, writes its ancestry to a dot file, and then load
+    # it back into memory using networkx.drawing.read_dot.
+    # Future improvement:~
+    # * rewrite ggrapgher to cache nodes encountered
+    # * load graph into networkx directly from ggrapher
     gg = geneagrapher.Geneagrapher()
     gg.get_ancestors = True
     gg.get_descendants = False
     gg.leaf_ids.append( mathID )
     gg.write_filename = TMP_DOT_FPATH
 
-    gg.buildGraph()
+    try:
+        # TODO:~ retry with limited incremental backoff
+        gg.buildGraph()
+    except IOError as err:
+        print "Error encountered while querying Mathematics Genealogy Project server"
+        print "Possibly network issue"
+        print err
+        exit()
     gg.generateDotFile()
 
     g = nx.drawing.read_dot( TMP_DOT_FPATH )
